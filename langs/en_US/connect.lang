@@ -1,0 +1,42 @@
+# Translation file
+
+#
+# Generic
+#
+
+# Module label 'ModuleConnectName'
+ModuleConnectName = Connect
+# Module description 'ModuleConnectDesc'
+ModuleConnectDesc = Connect description
+
+#
+# Admin page
+#
+ConnectSetup = Connect setup
+Settings = Settings
+ConnectSetupPage = Connect setup page
+NewSection=New section
+CONNECT_MYPARAM1 = My param 1
+CONNECT_MYPARAM1Tooltip = My param 1 tooltip
+CONNECT_MYPARAM2=My param 2
+CONNECT_MYPARAM2Tooltip=My param 2 tooltip
+
+
+#
+# About page
+#
+About = About
+ConnectAbout = About Connect
+ConnectAboutPage = Connect about page
+
+#
+# Sample page
+#
+ConnectArea = Home Connect
+MyPageName = My page name
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description
