@@ -200,12 +200,20 @@ class CustomApiUsers extends Users
 	{
 		if (!is_object($object)) return $object;
 
-		$return = ["id" => "", "email" => "", "emailVerified" => null, "name" => "", "api_key" => ""];
+		$return = [
+			"id" => "",
+			"email" => "",
+			"emailVerified" => null,
+			"name" => "",
+			"api_key" => "",
+			"admin" => 0
+		];
 
 		$return["id"] = $object->id;
 		$return["email"] = $object->email;
 		$return["name"] = implode(" ", [$object->firstname, $object->lastname]);
 		$return["api_key"] = $object->api_key;
+		$return["admin"] = $object->admin;
 
 		return $return;
 	}
