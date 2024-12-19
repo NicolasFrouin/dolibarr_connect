@@ -21,10 +21,14 @@ trait BasicAuth
             return ReturnObject::error("ERR_MISSING_PARAMETER", "Missing parameter email", 422)->send();
         }
 
+        if ($userData["email"] === $userData["login"] || filter_var($userData["login"], FILTER_VALIDATE_EMAIL)) {
+            unset($userData["login"]);
+        }
+
         // If no login is provided, use the email
         if (empty($userData["login"])) {
             // '@' is not allowed in login
-            $userData["login"] = str_replace("@", "[at]", $userData["email"]);
+            $userData["login"] = strtr($userData["email"], ["@" => "[at]"]);
         }
 
         // Allow `name` to be used instead of `firstname` and `lastname`
@@ -46,7 +50,7 @@ trait BasicAuth
 
         $return = $user->register($userData, DolibarrApiAccess::$user)->send();
 
-        return CustomApiUsers::getOnlyUserData($return);
+        return CustomApiUsers::getOnlyOAuthData($return);
     }
 
     /**

@@ -264,15 +264,9 @@ class CustomUser extends User
 
 		$this->db->commit();
 
-		return $this;
-		// return ReturnObject::success([
-		// 	"clientId" => $client->id,
-		// 	"client" => $client,
-		// 	"contactId" => $contact->id,
-		// 	"contact" => $contact,
-		// 	"userId" => $this->id,
-		// 	"user" => $this,
-		// ]);
+		dol_include_once("/connect/class/lib/override/user/api_users.class.php");
+
+		return ReturnObject::success(CustomApiUsers::getOnlyOAuthData($this));
 	}
 
 	private function setApiKey()

@@ -48,12 +48,9 @@ class CustomApiUsers extends Users
 	public function login($login, $password, $entity = '', $reset = 0)
 	{
 		dol_include_once("/api/class/api_login.class.php");
-		// dol_include_once("/societe/class/societe.class.php");
-		// dol_include_once("/contact/class/contact.class.php");
 		dol_include_once("/custom/connect/class/lib/override/user/user.class.php");
 		dol_include_once("/custom/connect/class/lib/override/user/api_users.class.php");
 
-		$cleaner = new CustomApiUsers();
 		$loginClass = new Login();
 
 		$loginRes = $loginClass->index($login, $password, $entity, $reset);
@@ -78,27 +75,6 @@ class CustomApiUsers extends Users
 		if ($user->fetch($obj->rowid) <= 0) return ReturnObject::error("ERR_USER_NOT_FOUND", "User not found")->send();
 
 		return CustomApiUsers::getOnlyOAuthData($user);
-
-		// $user->token = $user->api_key;
-
-		// $thirdparty = new Societe($this->db);
-		// if ($thirdparty->fetch($user->socid) <= 0) {
-		// 	$thirdparty = null;
-		// }
-
-		// $contact = new Contact($this->db);
-		// if ($contact->fetch($user->contact_id) <= 0) {
-		// 	$contact = null;
-		// }
-
-		// return ReturnObject::success([
-		// 	"userId" => $user->id,
-		// 	"user" => $cleaner->_cleanObjectDatas($user),
-		// 	"thirdpartyId" => $thirdparty->id ?? null,
-		// 	"thirdparty" => $cleaner->_cleanObjectDatas($thirdparty),
-		// 	"contactId" => $contact->id ?? null,
-		// 	"contact" => $cleaner->_cleanObjectDatas($contact),
-		// ])->send();
 	}
 
 	/**
@@ -200,12 +176,14 @@ class CustomApiUsers extends Users
 	{
 		if (!is_object($object)) return $object;
 
-		$return = ["id" => "", "email" => "", "emailVerified" => null, "name" => "", "api_key" => ""];
-
-		$return["id"] = $object->id;
-		$return["email"] = $object->email;
-		$return["name"] = implode(" ", [$object->firstname, $object->lastname]);
-		$return["api_key"] = $object->api_key;
+		$return = [
+			"id" => $object->id,
+			"email" => $object->email,
+			"emailVerified" => null,
+			"name" => implode(" ", [$object->firstname, $object->lastname]),
+			"api_key" => $object->api_key,
+			"admin" => $object->admin,
+		];
 
 		return $return;
 	}

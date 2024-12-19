@@ -68,7 +68,7 @@ class Connect extends DolibarrApi
 	 */
 	public function sendMail($subject, $to, $message, $isHtml = false)
 	{
-		if (!$user->hasRight("connect", "mail", "send")) {
+		if (!DolibarrApiAccess::$user->hasRight("connect", "mail", "send")) {
 			throw new RestException(403);
 		}
 
